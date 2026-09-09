@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Search, AlertCircle, RefreshCw, Eye, TrashIcon, Lock } from 'lucide-react';
+import { Search, AlertCircle, RefreshCw, Eye, Lock } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import { useAuth } from '../hooks/useAuth';
-import { getUserList, countAppUsers, getUserDetail, logUserAccess, deleteUserAndData, getSafeguardingFlags, markFlagAddressed } from '../lib/contentApi';
+import { getUserList, countAppUsers, getUserDetail, logUserAccess, deleteUserAndData } from '../lib/contentApi';
 import type { AppUser, UserDetail } from '../types';
 
 const PAGE_SIZE = 25;
