@@ -1,0 +1,119 @@
+[
+  {
+    "id": "sadag",
+    "name": "SADAG",
+    "description": "Counselling and referrals for depression, anxiety, trauma, GBV, abuse, PTSD, suicide and other mental health issues. 24-hour toll-free emergency helpline.",
+    "tier": "emergency",
+    "cost": "Free",
+    "url": null,
+    "contacts": [
+      { "kind": "call", "display": "0800 567 567", "url": "tel:0800567567" },
+      { "kind": "sms",  "display": "SMS 31393",    "url": "sms:31393" }
+    ],
+    "sort_order": 0,
+    "status": "published"
+  },
+  {
+    "id": "childline",
+    "name": "Childline",
+    "description": "Children's mental health services: counselling, support, training, helpline, education and more.",
+    "tier": "emergency",
+    "cost": "Free",
+    "url": null,
+    "contacts": [
+      { "kind": "call",      "display": "116",                  "url": "tel:116" },
+      { "kind": "call",      "display": "0800 055 555",         "url": "tel:0800055555" },
+      { "kind": "whatsapp",  "display": "WhatsApp 083 371 2104","url": "https://wa.me/27833712104" }
+    ],
+    "sort_order": 1,
+    "status": "published"
+  },
+  {
+    "id": "emergency",
+    "name": "Emergency services",
+    "description": "South African Police Service emergency line.",
+    "tier": "emergency",
+    "cost": "Free",
+    "url": null,
+    "contacts": [
+      { "kind": "call", "display": "10111", "url": "tel:10111" }
+    ],
+    "sort_order": 2,
+    "status": "published"
+  },
+  {
+    "id": "substance",
+    "name": "Substance abuse helpline",
+    "description": "Support for substance abuse. Department of Social Development.",
+    "tier": "support",
+    "cost": "Free",
+    "url": null,
+    "contacts": [
+      { "kind": "call", "display": "0800 12 13 14", "url": "tel:0800121314" },
+      { "kind": "sms",  "display": "SMS 32312",     "url": "sms:32312" }
+    ],
+    "sort_order": 3,
+    "status": "published"
+  },
+  {
+    "id": "adhd",
+    "name": "ADHD helpline",
+    "description": "Free telephonic counselling, guidance, and educational resources for individuals with ADHD, and for family members, teachers, and GPs.",
+    "tier": "support",
+    "cost": "Free",
+    "url": null,
+    "contacts": [
+      { "kind": "call", "display": "0800 55 44 33", "url": "tel:0800554433" }
+    ],
+    "sort_order": 4,
+    "status": "published"
+  },
+  {
+    "id": "psychmatters",
+    "name": "PsychMatters",
+    "description": "Psychotherapy for children and parents, group therapy, and workshops.",
+    "tier": "support",
+    "cost": null,
+    "url": null,
+    "contacts": [
+      { "kind": "call", "display": "011 450 3576", "url": "tel:0114503576" }
+    ],
+    "sort_order": 5,
+    "status": "published"
+  },
+  {
+    "id": "lifeline",
+    "name": "Lifeline",
+    "description": "Counselling services.",
+    "tier": "support",
+    "cost": null,
+    "url": null,
+    "contacts": [
+      { "kind": "call", "display": "0861 322 322", "url": "tel:0861322322" }
+    ],
+    "sort_order": 6,
+    "status": "published"
+  },
+  {
+    "id": "gys",
+    "name": "Global Youth Solutions (GYS)",
+    "description": "Peer support network for young people.",
+    "tier": "partner",
+    "cost": null,
+    "url": "https://gys.org.za",
+    "contacts": [],
+    "sort_order": 7,
+    "status": "published"
+  },
+  {
+    "id": "nexgen",
+    "name": "NexGen Gender Advocates",
+    "description": "Gender equity and youth advocacy.",
+    "tier": "partner",
+    "cost": null,
+    "url": "https://nexgen.org.za",
+    "contacts": [],
+    "sort_order": 8,
+    "status": "published"
+  }
+]

@@ -30,3 +30,72 @@ export const ROLE_SECTIONS: Record<AdminRole, string[]> = {
   content_manager:   ['overview', 'content', 'directory', 'quotes'],
   support_moderator: ['overview', 'users', 'activity'],
 };
+
+// ── CMS content types ────────────────────────────────────────────────────────
+
+export interface CmsArticle {
+  id: string;
+  title: string;
+  category: string;
+  categories: string[];
+  topic: string;
+  format: 'article' | 'video';
+  duration: string;
+  language: string;
+  short_description: string;
+  body: string[];
+  themes: string[];
+  support: string[] | null;
+  status: 'draft' | 'published';
+  created_at: string;
+  updated_at: string;
+}
+
+export type ContactKind = 'call' | 'sms' | 'whatsapp';
+export interface ServiceContact { kind: ContactKind; display: string; url: string; }
+
+export interface CmsDirectoryService {
+  id: string;
+  name: string;
+  description: string;
+  tier: 'emergency' | 'support' | 'partner';
+  cost: string | null;
+  url: string | null;
+  contacts: ServiceContact[];
+  sort_order: number;
+  status: 'draft' | 'published';
+  updated_at: string;
+}
+
+export interface CmsQuote {
+  id: number;
+  text: string;
+  sort_order: number;
+  status: 'draft' | 'published';
+}
+
+export const CATEGORY_KEY: Record<string, string> = {
+  'Feelings & Emotions': 'feelings',
+  'Breathwork & Grounding': 'breathwork',
+  'Teens': 'teens',
+  'Family': 'family',
+  'Friends': 'friends',
+  'High School': 'highschool',
+  'University and Career': 'university',
+  'Physical Health': 'physical',
+  'Healthy Mind': 'mind',
+  'Relationships': 'relationships',
+};
+
+export const CATEGORY_LABELS: Record<string, string> = {
+  feelings: 'Feelings & emotions',
+  breathwork: 'Breathwork & grounding',
+  teens: 'Teens',
+  family: 'Family',
+  friends: 'Friends',
+  highschool: 'High School',
+  university: 'University & career',
+  physical: 'Physical health',
+  mind: 'Healthy mind',
+  relationships: 'Relationships',
+};

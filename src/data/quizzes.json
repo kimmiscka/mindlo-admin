@@ -1,0 +1,876 @@
+{
+  "quizzes": [
+    {
+      "id": "check_your_vibes",
+      "title": "Check Your Vibes",
+      "topic": "Trauma",
+      "categories": [
+        "Feelings & Emotions",
+        "Trauma"
+      ],
+      "format": "quiz",
+      "points": 10,
+      "intro": "Let's figure out what your body and mind are trying to tell you. Safe, anonymous, and just between us.",
+      "questions": [
+        {
+          "question": "How's your focus engine running lately?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Sharp! I can finish my homework and lock into class no problem.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "A bit glitchy. I get distracted, but I can pull it back if I try.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Total white noise. I sit in class but my brain is completely elsewhere, just trying to survive the day.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "A sudden loud noise happens (like a door slamming or a car backfiring). What does your body do?",
+          "options": [
+            {
+              "label": "A",
+              "text": "I look up for a second, then go right back to what I was doing.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "It startles me, but my heart settles down after a minute.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Full panic station. My heart races, I feel shaky, and it takes me ages to feel safe again.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "When you think about letting new people get close to you, what's your default setting?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Open arms! I find it easy to trust people and make close friends.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Guarded at first, but I open up once I know they are cool.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "High walls up. I push people away or keep them at a distance so I don't get hurt.",
+              "score": "C"
+            }
+          ]
+        }
+      ],
+      "results": {
+        "A": {
+          "route": "green",
+          "title": "You're Cruising! 🌟",
+          "message": "Your system is feeling stable and grounded right now. Keep building those healthy habits, and remember to check in on your friends who might be having a heavier week.",
+          "cta": "Explore our Daily Gratitude Journal to keep the good energy going."
+        },
+        "B": {
+          "route": "amber",
+          "title": "A Bit Overloaded ⏳",
+          "message": "You are carrying some stress, and your battery is running a bit low. Your mind is trying to handle a lot at once. It is completely okay to take a breather.",
+          "cta": "Tap to try our 3-Minute Nervous System Reset exercise right now."
+        },
+        "C": {
+          "route": "orange",
+          "title": "Survival Mode Activated 🛡️",
+          "message": "Your system is working in overdrive to keep you safe. The focus drops, the high startle response, and the high walls are clear signs of chronic stress. You are not broken — your body is just tired of being on guard.",
+          "cta": "Let's lower the stress levels together. Tap to open our Grounding Hub or speak anonymously with a SADAG counsellor right from the app."
+        }
+      }
+    },
+    {
+      "id": "worry_meter",
+      "title": "How's Your Worry Meter?",
+      "topic": "Anxiety",
+      "categories": [
+        "Feelings & Emotions",
+        "Anxiety"
+      ],
+      "format": "quiz",
+      "points": 10,
+      "intro": "Worry has a way of turning the volume up on everything. Let's take a quick read on where yours is sitting today — no pressure, just between us.",
+      "questions": [
+        {
+          "question": "When you've got nothing urgent to do, what's your mind up to?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Pretty quiet — I can relax and just be.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "It wanders to worries sometimes, but I can steer it back.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Racing non-stop, hunting for the next thing to worry about.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How does your body feel on a normal day?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Relaxed — loose shoulders, easy breathing.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "A bit tense here and there, but okay overall.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Tight chest, clenched jaw, restless — like I'm bracing for something.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "When a small thing goes wrong, what happens next in your head?",
+          "options": [
+            {
+              "label": "A",
+              "text": "I deal with it and move on.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "It bugs me for a bit, then I let it go.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "It spirals — one small thing becomes a hundred what-ifs.",
+              "score": "C"
+            }
+          ]
+        }
+      ],
+      "results": {
+        "A": {
+          "route": "green",
+          "title": "Steady and settled 🌿",
+          "message": "Your worry meter is sitting in a calm place right now. That's worth appreciating. Keep the habits that keep you grounded — and maybe check in on a friend who seems wound-up.",
+          "cta": "Try the Daily Gratitude Journal to keep that steady feeling going."
+        },
+        "B": {
+          "route": "amber",
+          "title": "A bit noisy ⏳",
+          "message": "There's some worry humming in the background — normal, but worth softening before it builds. Your mind is doing a lot of quiet work.",
+          "cta": "Tap to try a 3-minute breathing exercise and turn the volume down."
+        },
+        "C": {
+          "route": "orange",
+          "title": "Running loud 🛡️",
+          "message": "Your worry meter is turned up high, and that's exhausting to carry. This isn't you being dramatic — it's anxiety working overtime, and it can be eased.",
+          "cta": "Open the Grounding Hub to steady yourself now, or reach a SADAG counsellor free from the app whenever you're ready."
+        }
+      }
+    },
+    {
+      "id": "batteries",
+      "title": "How Are Your Batteries?",
+      "topic": "Sleep & rest",
+      "categories": [
+        "Breathwork & Grounding",
+        "Sleep & rest"
+      ],
+      "format": "quiz",
+      "points": 10,
+      "intro": "Sleep is where your mind and body recharge. Let's see how full your batteries are running lately.",
+      "questions": [
+        {
+          "question": "When your head hits the pillow, what happens?",
+          "options": [
+            {
+              "label": "A",
+              "text": "I drift off pretty easily most nights.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Takes me a while — my mind likes to review the day first.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "I lie awake for ages, thoughts spinning, no off-switch.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How do you feel when you wake up?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Mostly rested and ready-ish for the day.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Groggy, but I get going after a bit.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Wrecked — like I barely slept, even after a full night.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "During the day, where's your energy?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Steady enough to get through what I need to.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Dips hard in the afternoon, but I push through.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Running on empty — foggy, heavy, and craving a nap constantly.",
+              "score": "C"
+            }
+          ]
+        }
+      ],
+      "results": {
+        "A": {
+          "route": "green",
+          "title": "Well charged 🔋",
+          "message": "Your batteries are in good shape, and that's doing quiet favours for your mood, focus, and stress levels. Protect that sleep — it's one of your best tools.",
+          "cta": "Explore the Library for a wind-down routine to keep your nights solid."
+        },
+        "B": {
+          "route": "amber",
+          "title": "Running a bit low ⏳",
+          "message": "Your batteries aren't fully charging, and that catches up with you over time. A racing mind at night is often stress asking for attention.",
+          "cta": "Try a calming breathing exercise before bed tonight to help you settle."
+        },
+        "C": {
+          "route": "orange",
+          "title": "Almost flat 🛡️",
+          "message": "You're running close to empty, and that's hard on everything — your focus, your feelings, your patience. Poor sleep and stress feed each other, but that loop can be broken.",
+          "cta": "Open the Grounding Hub to calm your system, and if sleepless nights keep piling up, a SADAG counsellor is one tap away."
+        }
+      }
+    },
+    {
+      "id": "running_on_empty",
+      "title": "Are You Running on Empty?",
+      "topic": "Stress / Exams",
+      "categories": [
+        "Feelings & Emotions",
+        "Stress"
+      ],
+      "format": "quiz",
+      "points": 10,
+      "intro": "Exam season and pressure can drain your tank fast. Let's check how much fuel you've actually got left.",
+      "questions": [
+        {
+          "question": "How's your studying going lately?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Steady — I've got a rhythm that works.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "On and off — I get there, but it's a battle some days.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Stuck — I sit down to study and just freeze or blank out.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "What's your body doing when you think about your workload?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Nothing dramatic — I feel fairly in control.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "A little knot in my stomach, but manageable.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Racing heart, tight chest — full alarm mode.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How are you sleeping through this busy stretch?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Pretty normally.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Less than I'd like, but okay.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Barely — my brain won't switch off.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "When someone asks how you're coping, what's the honest answer?",
+          "options": [
+            {
+              "label": "A",
+              "text": "“Actually okay, thanks.”",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "“Bit stressed, but I'll manage.”",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "“Honestly? Drowning a little.”",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "What happens when you try to take a break?",
+          "options": [
+            {
+              "label": "A",
+              "text": "I rest, then get back to it refreshed.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "I feel a bit guilty, but I take it.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "I can't — the guilt and panic won't let me stop.",
+              "score": "C"
+            }
+          ]
+        }
+      ],
+      "results": {
+        "A": {
+          "route": "green",
+          "title": "Tank's holding 🌟",
+          "message": "You're carrying the pressure without it carrying you. That balance is a real skill. Keep protecting your rest and breaks — they're why you're steady.",
+          "cta": "Browse the Library for study-and-rest tips to keep the balance."
+        },
+        "B": {
+          "route": "amber",
+          "title": "Fuel getting low ⏳",
+          "message": "You're pushing through, but the tank's dropping. Stress is manageable now — this is the moment to top up before it tips into burnout.",
+          "cta": "Tap to try the 3-Minute Nervous System Reset before your next study session."
+        },
+        "C": {
+          "route": "orange",
+          "title": "Running on fumes 🛡️",
+          "message": "You're deep in the red, and that's not a character flaw — it's a system that's been asked to do too much without enough rest. Please be gentle with yourself.",
+          "cta": "Open the Grounding Hub now, and consider talking it through with someone — a SADAG counsellor is available free, right from the app."
+        }
+      }
+    },
+    {
+      "id": "backpack",
+      "title": "How Heavy Is Your Backpack?",
+      "topic": "Low mood / Depression",
+      "categories": [
+        "Feelings & Emotions",
+        "Depression"
+      ],
+      "format": "quiz",
+      "points": 10,
+      "intro": "Some weeks we carry more than others. This is a gentle check on how heavy things feel right now — no judgement, just honesty.",
+      "questions": [
+        {
+          "question": "How do the things you usually enjoy feel lately?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Still good — they lift me like normal.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "A bit flat, but I still bother with them.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Pointless — I've stopped caring about most of them.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "What's your energy like for everyday things?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Enough to get through my day fine.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Low — small tasks feel bigger than they should.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Gone — even getting up or showering feels like a mountain.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How's your inner voice talking to you?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Mostly fair and kind enough.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Harsh sometimes, but I push back.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Brutal — it keeps telling me I'm a burden or not enough.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "When you picture the next few weeks, how does it feel?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Hopeful, or at least okay.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Uncertain, a bit grey.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Heavy and hopeless, like nothing will shift.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How connected do you feel to the people around you?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Pretty connected.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "A little distant lately.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Alone, even when people are right there.",
+              "score": "C"
+            }
+          ]
+        }
+      ],
+      "results": {
+        "A": {
+          "route": "green",
+          "title": "Carrying it well 🌟",
+          "message": "Your backpack feels manageable right now, and that's good to know. Keep leaning on what keeps you steady, and check in on friends whose bags might be heavier.",
+          "cta": "Try the Daily Gratitude Journal to keep the lighter feeling going."
+        },
+        "B": {
+          "route": "amber",
+          "title": "Getting heavier ⏳",
+          "message": "There's some real weight in your bag lately — a greyness that's worth paying attention to before it settles in. You don't have to carry it silently.",
+          "cta": "Try a small win from the Library today, and consider telling one person you trust how you've been feeling."
+        },
+        "C": {
+          "route": "orange",
+          "title": "Weighing a lot 🛡️",
+          "message": "Your backpack is heavy right now, and that heaviness is real — not weakness, not laziness. These feelings can ease with support, even when they insist they won't.",
+          "cta": "Please reach out — open the Directory to talk to a SADAG counsellor free from the app. You deserve support, especially on the hardest days."
+        }
+      }
+    },
+    {
+      "id": "inner_voice",
+      "title": "How's Your Inner Voice?",
+      "topic": "Self-esteem",
+      "categories": [
+        "Healthy Mind",
+        "Self-esteem"
+      ],
+      "format": "quiz",
+      "points": 10,
+      "intro": "We've all got a voice in our head that comments on how we're doing. Let's find out how yours has been talking to you.",
+      "questions": [
+        {
+          "question": "You make a mistake in front of people. What does your inner voice say?",
+          "options": [
+            {
+              "label": "A",
+              "text": "“It's fine, everyone slips up.”",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "“Ugh, awkward” — but I get over it.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "“You're so embarrassing, everyone's judging you.”",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "When something good happens to you, how do you react?",
+          "options": [
+            {
+              "label": "A",
+              "text": "I let myself enjoy it — I earned it.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "I'm happy, but I brush it off a bit.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "I assume it was luck, or that I don't really deserve it.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How do you talk about yourself, even just in your head?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Fairly kindly — like I'd talk to a friend.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "A mix of kind and critical.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Mostly harsh — I'm my own worst critic by far.",
+              "score": "C"
+            }
+          ]
+        }
+      ],
+      "results": {
+        "A": {
+          "route": "green",
+          "title": "A kind inner voice 🌟",
+          "message": "You speak to yourself with fairness and warmth, and that's a genuine strength — it gives you room to try, fail, and bounce back. Keep it up.",
+          "cta": "Explore the Library to keep building that steady self-belief."
+        },
+        "B": {
+          "route": "amber",
+          "title": "A mixed inner voice ⏳",
+          "message": "Your inner voice swings between kind and critical. The harsh moments can quietly wear you down, but they can also be softened with a little practice.",
+          "cta": "Read “Talking to yourself more kindly” in the Library for a gentle place to start."
+        },
+        "C": {
+          "route": "orange",
+          "title": "A harsh inner voice 🛡️",
+          "message": "Your inner critic is loud, and living with that constant harshness is heavy. The cruel things it says feel true, but they're not facts about your worth.",
+          "cta": "Try “Talking to yourself more kindly,” and if the harshness feels overwhelming, a SADAG counsellor is one tap away in the app."
+        }
+      }
+    },
+    {
+      "id": "connected",
+      "title": "How Connected Do You Feel?",
+      "topic": "Loneliness / Connection",
+      "categories": [
+        "Friends",
+        "Loneliness"
+      ],
+      "format": "quiz",
+      "points": 10,
+      "intro": "Connection isn't about how many people are around you — it's about feeling seen. Let's check how connected you've been feeling lately.",
+      "questions": [
+        {
+          "question": "When you're with friends, how do you usually feel?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Seen and comfortable — like I belong.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Mostly okay, though a bit on the outside sometimes.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Alone, even in the middle of the group.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How easy is it to share what you're really feeling?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Pretty easy with the people I trust.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Hard, but I manage it now and then.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Almost impossible — I keep it all inside.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "When you're having a rough time, what do you do?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Reach out to someone who gets me.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Wait and hope someone notices.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Withdraw completely and go quiet.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How well do you feel the people close to you actually know you?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Really well — the real me.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "They know a version of me.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Not at all — I feel unknown, even by people I see daily.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How often do you feel lonely, even around others?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Rarely.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Now and then.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Most of the time.",
+              "score": "C"
+            }
+          ]
+        }
+      ],
+      "results": {
+        "A": {
+          "route": "green",
+          "title": "Well connected 🌟",
+          "message": "You've got genuine connection in your life, and feeling seen like that is a real anchor for your wellbeing. Keep nurturing those bonds — and maybe pull in someone who seems on the edges.",
+          "cta": "Explore the Library to keep those connections strong."
+        },
+        "B": {
+          "route": "amber",
+          "title": "A bit disconnected ⏳",
+          "message": "There's a gap between being around people and feeling close to them, and you're feeling it lately. Connection often grows from one honest moment shared.",
+          "cta": "Read “Reaching out when it's hard” in the Library for a gentle next step."
+        },
+        "C": {
+          "route": "orange",
+          "title": "Feeling alone 🛡️",
+          "message": "You're carrying a real loneliness right now, even around others — one of the most human and hardest feelings there is. It doesn't mean you'll always feel this way.",
+          "cta": "Try letting one trusted person a little closer, and know a SADAG counsellor is available free from the app whenever you need to talk."
+        }
+      }
+    },
+    {
+      "id": "weekly_vibe",
+      "title": "Your Weekly Vibe Check",
+      "topic": "General wellbeing",
+      "categories": [
+        "Healthy Mind",
+        "General wellbeing"
+      ],
+      "format": "quiz",
+      "points": 10,
+      "intro": "A quick, friendly read on how your week has actually been treating you — mind, body, and mood.",
+      "questions": [
+        {
+          "question": "How would you sum up your week in your body?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Light and easy.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "A bit tense or tired.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Heavy, drained, or wired.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How's your mood been overall?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Steady and mostly positive.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Up and down.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Low, flat, or all over the place.",
+              "score": "C"
+            }
+          ]
+        },
+        {
+          "question": "How much have you looked after yourself this week?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Ate, slept, moved, rested — mostly on track.",
+              "score": "A"
+            },
+            {
+              "label": "B",
+              "text": "Some of it slipped, but I managed.",
+              "score": "B"
+            },
+            {
+              "label": "C",
+              "text": "Barely — I've been running on empty.",
+              "score": "C"
+            }
+          ]
+        }
+      ],
+      "results": {
+        "A": {
+          "route": "green",
+          "title": "Good week 🌟",
+          "message": "You're in a good rhythm — mind, body, and mood mostly in sync. Notice what's working, because that's worth repeating.",
+          "cta": "Try the Daily Gratitude Journal to lock in the good energy."
+        },
+        "B": {
+          "route": "amber",
+          "title": "Mixed week ⏳",
+          "message": "A bit of an up-and-down week, and that's completely normal. Small resets can make the next one lighter.",
+          "cta": "Pick one exercise from the Grounding Hub to give yourself a reset."
+        },
+        "C": {
+          "route": "orange",
+          "title": "Tough week 🛡️",
+          "message": "This week's been heavy on you, and that deserves acknowledging rather than pushing past. Be as kind to yourself as you'd be to a friend who'd had this week.",
+          "cta": "Open the Grounding Hub for something soothing now, and if the tough weeks are stacking up, a SADAG counsellor is one tap away."
+        }
+      }
+    }
+  ]
+}
