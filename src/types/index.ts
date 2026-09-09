@@ -132,3 +132,39 @@ export interface AnalyticsMetrics {
   moodDistribution: MoodStat[];
   themeFrequency: ThemeStat[];
 }
+
+// ── User Management types ────────────────────────────────────────────────────
+
+export interface AppUser {
+  id: string;
+  username: string;
+  email: string;
+  area: string;
+  school: string;
+  age_band: string;
+  created_at: string;
+  last_active: string | null;
+  total_checkins: number;
+  total_points: number;
+}
+
+export interface UserDetail extends AppUser {
+  total_articles_completed: number;
+  total_exercises_completed: number;
+  total_quizzes_completed: number;
+  has_safeguarding_flag: boolean;
+  safeguarding_flag_type: string | null;
+  safeguarding_flagged_at: string | null;
+}
+
+export interface SafeguardingFlag {
+  id: string;
+  user_id: string;
+  flag_type: 'crisis' | 'support' | 'concern';
+  flagged_at: string;
+  notes: string | null;
+  flagged_by_system: string | null;
+  addressed_by: string | null;
+  addressed_at: string | null;
+  addressed_notes: string | null;
+}

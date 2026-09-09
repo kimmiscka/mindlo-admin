@@ -303,3 +303,96 @@ export async function getAnalyticsThemeFrequency(startDate: string, endDate: str
   if (error) throw new Error(error.message);
   return (data as Array<{ theme: string; count: number }>) ?? [];
 }
+
+// ── User Management ──────────────────────────────────────────────────────────
+
+export async function getUserList(
+  searchTerm?: string,
+  limit: number = 50,
+  offset: number = 0,
+): Promise<Array<any>> {
+  const { data, error } = await supabase.rpc('get_user_list', {
+    search_term: searchTerm || null,
+    limit_count: limit,
+    offset_count: offset,
+  });
+  if (error) throw new Error(error.message);
+  return (data ?? []);
+}
+
+export async function countAppUsers(searchTerm?: string): Promise<number> {
+  const { data, error } = await supabase.rpc('count_app_users', {
+    search_term: searchTerm || null,
+  });
+  if (error) throw new Error(error.message);
+  return data as number;
+}
+
+export async function getUserDetail(userId: string): Promise<any> {
+  const { data, error } = await supabase.rpc('get_user_detail', {
+    user_id: userId,
+  });
+  if (error) throw new Error(error.message);
+  if (!Array.isArray(data) || data.length === 0) return null;
+  return data[0];
+}
+
+export async function logUserAccess(
+  adminId: string,
+  adminEmail: string,
+  targetUserId: string,
+  accessType: string,
+  reason?: string,
+  details?: Record<string, unknown>,
+): Promise<void> {
+  const { error } = await supabase.rpc('log_user_access', {
+    admin_id: adminId,
+    admin_email: adminEmail,
+    target_user_id: targetUserId,
+    access_type: accessType,
+    reason: reason || null,
+    details: details || null,
+  });
+  if (error) throw new Error(error.message);
+  await logAudit(adminId, adminEmail, {
+    action: 'user_access',
+    resource_type: 'user',
+    resource_id: targetUserId,
+    details: { accessType, reason },
+  });
+}
+
+export async function getSafeguardingFlags(): Promise<Array<any>> {
+  const { data, error } = await supabase
+    .from('user_safeguarding_flags')
+    .select('*')
+    .is('addressed_at', true);
+  if (error) throw new Error(error.message);
+  return data ?? [];
+}
+
+export async function markFlagAddressed(
+  flagId: string,
+  adminId: string,
+  notes: string,
+): Promise<void> {
+  const { error } = await supabase
+    .from('user_safeguarding_flags')
+    .update({ addressed_by: adminId, addressed_at: new Date().toISOString(), addressed_notes: notes })
+    .eq('id', flagId);
+  if (error) throw new Error(error.message);
+}
+
+export async function deleteUserAndData(userId: string, adminId: string, adminEmail: string): Promise<void> {
+  // Delete user via Supabase auth
+  const { error } = await supabase.auth.admin.deleteUser(userId);
+  if (error) throw new Error(error.message);
+
+  // Log the deletion
+  await logAudit(adminId, adminEmail, {
+    action: 'delete_user',
+    resource_type: 'user',
+    resource_id: userId,
+    details: { reason: 'POPIA erasure right - user deletion' },
+  });
+}
