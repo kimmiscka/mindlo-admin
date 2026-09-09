@@ -29,7 +29,6 @@ export default function ArticleForm({ article, onSave, onClose }: Props) {
   const [format, setFormat] = useState<'article' | 'video'>(article?.format ?? 'article');
   const [language, setLanguage] = useState(article?.language ?? 'English');
   const [duration, setDuration] = useState(article?.duration ?? '');
-  const [shortDesc, setShortDesc] = useState(article?.short_description ?? '');
   const [body, setBody] = useState<string[]>(article?.body?.length ? article.body : ['']);
   const [themes, setThemes] = useState((article?.themes ?? []).join(', '));
   const [support, setSupport] = useState((article?.support ?? []).join('\n'));
@@ -59,7 +58,6 @@ export default function ArticleForm({ article, onSave, onClose }: Props) {
     const e: Record<string, string> = {};
     if (!title.trim()) e.title = 'Title is required';
     if (!id.trim()) e.id = 'ID is required';
-    if (!shortDesc.trim()) e.shortDesc = 'Short description is required';
     if (body.every((p) => !p.trim())) e.body = 'At least one paragraph is required';
     return e;
   }
@@ -79,7 +77,6 @@ export default function ArticleForm({ article, onSave, onClose }: Props) {
         format,
         language,
         duration: duration.trim(),
-        short_description: shortDesc.trim(),
         body: body.filter((p) => p.trim()),
         themes: themes.split(',').map((t) => t.trim()).filter(Boolean),
         support: support.trim() ? support.split('\n').map((s) => s.trim()).filter(Boolean) : null,
@@ -213,15 +210,6 @@ export default function ArticleForm({ article, onSave, onClose }: Props) {
               className={field()} placeholder="anxiety, depression, grief…" />
           </div>
 
-          {/* Short description */}
-          <div>
-            <label className="block text-xs font-semibold text-gray-600 mb-1">Short description *</label>
-            <textarea value={shortDesc} onChange={(e) => setShortDesc(e.target.value)}
-              rows={2} className={field(errors.shortDesc)}
-              placeholder="One sentence that hooks the reader." />
-            {errors.shortDesc && <p className="text-red-500 text-xs mt-1">{errors.shortDesc}</p>}
-          </div>
-
           {/* Body paragraphs */}
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -314,7 +302,6 @@ export default function ArticleForm({ article, onSave, onClose }: Props) {
               {duration && <p className="text-xs text-gray-500 mt-1">{duration}</p>}
             </div>
             <div className="px-5 py-4 space-y-4">
-              {shortDesc && <p className="text-sm text-gray-500 italic">{shortDesc}</p>}
               {body.filter((p) => p.trim()).map((p, i) => (
                 <p key={i} className="text-sm text-gray-800 leading-relaxed">{p}</p>
               ))}

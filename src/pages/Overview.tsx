@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import { supabase } from '../lib/supabase';
-import { getAdminCount, getTotalUsers, getDailyActiveUsers } from '../lib/contentApi';
+import { getAdminCount } from '../lib/contentApi';
 import { useAuth } from '../hooks/useAuth';
 
 interface StatTile {
@@ -30,8 +30,6 @@ export default function Overview() {
   const [recentLogs, setRecentLogs] = useState<AuditRow[]>([]);
   const [logsLoading, setLogsLoading] = useState(true);
   const [adminCount, setAdminCount] = useState<number | null>(null);
-  const [totalUsers, setTotalUsers] = useState<number | null>(null);
-  const [activeUsers, setActiveUsers] = useState<number | null>(null);
 
   useEffect(() => {
     // Fetch audit logs
@@ -46,16 +44,10 @@ export default function Overview() {
       });
 
     // Fetch overview stats
-    Promise.all([
-      getAdminCount(),
-      getTotalUsers(),
-      getDailyActiveUsers(),
-    ]).then(([admins, users, active]) => {
-      setAdminCount(admins);
-      setTotalUsers(users);
-      setActiveUsers(active);
+    getAdminCount().then((count) => {
+      setAdminCount(count);
     }).catch((err) => {
-      console.error('Failed to fetch stats:', err);
+      console.error('Failed to fetch admin count:', err);
     });
   }, []);
 

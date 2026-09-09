@@ -62,7 +62,7 @@ export default function Content() {
     if (statusFilter !== 'all') list = list.filter((a) => a.status === statusFilter);
     if (query) {
       const q = query.toLowerCase();
-      list = list.filter((a) => a.title.toLowerCase().includes(q) || a.short_description.toLowerCase().includes(q));
+      list = list.filter((a) => a.title.toLowerCase().includes(q));
     }
     return list;
   }, [articles, catFilter, statusFilter, query]);
@@ -230,9 +230,6 @@ export default function Content() {
                         <tr key={a.id} className="hover:bg-gray-50 transition-colors">
                           <td className="px-4 py-3 max-w-xs">
                             <p className="font-medium text-gray-900 truncate">{a.title}</p>
-                            {a.short_description && (
-                              <p className="text-xs text-gray-400 truncate mt-0.5">{a.short_description}</p>
-                            )}
                           </td>
                           <td className="px-4 py-3">
                             <span className={`inline-block px-2 py-0.5 rounded-full text-[11px] font-medium ${CATEGORY_PILL[a.category] ?? 'bg-gray-100 text-gray-600'}`}>
