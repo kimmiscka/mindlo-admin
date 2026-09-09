@@ -99,3 +99,36 @@ export const CATEGORY_LABELS: Record<string, string> = {
   mind: 'Healthy mind',
   relationships: 'Relationships',
 };
+
+// ── Analytics types ─────────────────────────────────────────────────────────
+
+export interface DailyMetric {
+  date: string;
+  count: number;
+}
+
+export interface ContentCompletion {
+  content_type: string;
+  content_id: string;
+  count: number;
+}
+
+export interface MoodStat {
+  mood_key: string | null;
+  count: number;
+}
+
+export interface ThemeStat {
+  theme: string;
+  count: number;
+}
+
+export interface AnalyticsMetrics {
+  totalUsers: number;
+  newUsers: number;
+  dau: DailyMetric[];
+  checkins: DailyMetric[];
+  topContent: ContentCompletion[];
+  moodDistribution: MoodStat[];
+  themeFrequency: ThemeStat[];
+}

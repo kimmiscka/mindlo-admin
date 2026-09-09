@@ -241,3 +241,65 @@ export async function seedQuotes(adminId: string, adminEmail: string): Promise<n
   });
   return rows.length;
 }
+
+// ── Analytics ────────────────────────────────────────────────────────────────
+
+export async function getAnalyticsTotalUsers(): Promise<number> {
+  const { data, error } = await supabase.rpc('analytics_total_users');
+  if (error) throw new Error(error.message);
+  return data as number;
+}
+
+export async function getAnalyticsNewUsers(startDate: string, endDate: string): Promise<number> {
+  const { data, error } = await supabase.rpc('analytics_new_users', {
+    start_date: startDate,
+    end_date: endDate,
+  });
+  if (error) throw new Error(error.message);
+  return data as number;
+}
+
+export async function getAnalyticsDailyActiveUsers(startDate: string, endDate: string): Promise<Array<{ date: string; count: number }>> {
+  const { data, error } = await supabase.rpc('analytics_daily_active_users', {
+    start_date: startDate,
+    end_date: endDate,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Array<{ date: string; count: number }>) ?? [];
+}
+
+export async function getAnalyticsCheckInCompletion(startDate: string, endDate: string): Promise<Array<{ date: string; count: number }>> {
+  const { data, error } = await supabase.rpc('analytics_check_in_completion', {
+    start_date: startDate,
+    end_date: endDate,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Array<{ date: string; count: number }>) ?? [];
+}
+
+export async function getAnalyticsContentCompletion(startDate: string, endDate: string): Promise<Array<{ content_type: string; content_id: string; count: number }>> {
+  const { data, error } = await supabase.rpc('analytics_content_completion', {
+    start_date: startDate,
+    end_date: endDate,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Array<{ content_type: string; content_id: string; count: number }>) ?? [];
+}
+
+export async function getAnalyticsMoodDistribution(startDate: string, endDate: string): Promise<Array<{ mood_key: string | null; count: number }>> {
+  const { data, error } = await supabase.rpc('analytics_mood_distribution', {
+    start_date: startDate,
+    end_date: endDate,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Array<{ mood_key: string | null; count: number }>) ?? [];
+}
+
+export async function getAnalyticsThemeFrequency(startDate: string, endDate: string): Promise<Array<{ theme: string; count: number }>> {
+  const { data, error } = await supabase.rpc('analytics_theme_frequency', {
+    start_date: startDate,
+    end_date: endDate,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Array<{ theme: string; count: number }>) ?? [];
+}

@@ -1,141 +1,257 @@
 import { useEffect, useState } from 'react';
-import { Activity as ActivityIcon, RefreshCw } from 'lucide-react';
+import { TrendingUp, Users, UserPlus, Calendar, RefreshCw } from 'lucide-react';
+import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import TopBar from '../components/TopBar';
-import { supabase } from '../lib/supabase';
-import type { AuditLog } from '../types';
+import { useAuth } from '../hooks/useAuth';
+import {
+  getAnalyticsTotalUsers, getAnalyticsNewUsers, getAnalyticsDailyActiveUsers,
+  getAnalyticsCheckInCompletion, getAnalyticsContentCompletion,
+  getAnalyticsMoodDistribution, getAnalyticsThemeFrequency,
+} from '../lib/contentApi';
+import type { AnalyticsMetrics } from '../types';
 
-const PAGE = 25;
+const RANGE_PRESETS = [
+  { label: 'Last 7 days', days: 7 },
+  { label: 'Last 30 days', days: 30 },
+  { label: 'Last 90 days', days: 90 },
+];
+
+const MOOD_COLORS: Record<string, string> = {
+  peaceful: '#10b981', anxious: '#f59e0b', sad: '#3b82f6', angry: '#ef4444',
+  neutral: '#9ca3af',
+};
+
+const THEME_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#14b8a6'];
 
 export default function Activity() {
-  const [logs, setLogs] = useState<AuditLog[]>([]);
+  const { admin } = useAuth();
+  const [metrics, setMetrics] = useState<AnalyticsMetrics | null>(null);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [days, setDays] = useState(30);
+  const [error, setError] = useState('');
 
-  const load = async (p: number) => {
+  const loadMetrics = async (dayRange: number) => {
     setLoading(true);
-    const from = p * PAGE;
-    const { data, count } = await supabase
-      .from('audit_logs')
-      .select('*', { count: 'exact' })
-      .order('created_at', { ascending: false })
-      .range(from, from + PAGE - 1);
-    setLogs((data as AuditLog[]) ?? []);
-    setTotal(count ?? 0);
-    setPage(p);
-    setLoading(false);
+    setError('');
+    try {
+      const endDate = new Date().toISOString().split('T')[0];
+      const startDate = new Date(Date.now() - dayRange * 86400000).toISOString().split('T')[0];
+
+      const [total, newCount, dau, checkins, content, moods, themes] = await Promise.all([
+        getAnalyticsTotalUsers(),
+        getAnalyticsNewUsers(startDate, endDate),
+        getAnalyticsDailyActiveUsers(startDate, endDate),
+        getAnalyticsCheckInCompletion(startDate, endDate),
+        getAnalyticsContentCompletion(startDate, endDate),
+        getAnalyticsMoodDistribution(startDate, endDate),
+        getAnalyticsThemeFrequency(startDate, endDate),
+      ]);
+
+      const topContent = content.slice(0, 5).map((c) => ({
+        ...c,
+        label: c.content_id.slice(0, 20),
+      }));
+
+      setMetrics({
+        totalUsers: total,
+        newUsers: newCount,
+        dau: dau.map((d) => ({ ...d, date: new Date(d.date).toLocaleDateString('en-ZA', { month: 'short', day: 'numeric' }) })),
+        checkins: checkins.map((c) => ({ ...c, date: new Date(c.date).toLocaleDateString('en-ZA', { month: 'short', day: 'numeric' }) })),
+        topContent,
+        moodDistribution: moods.filter((m) => m.mood_key),
+        themeFrequency: themes.slice(0, 8),
+      });
+      setDays(dayRange);
+    } catch (e: unknown) {
+      setError(String(e));
+    } finally {
+      setLoading(false);
+    }
   };
 
-  useEffect(() => { load(0); }, []);
+  useEffect(() => { loadMetrics(30); }, []);
 
-  const fmt = (iso: string) =>
-    new Date(iso).toLocaleString('en-ZA', {
-      day: 'numeric', month: 'short', year: 'numeric',
-      hour: '2-digit', minute: '2-digit',
-    });
+  if (!admin || !['super_admin', 'support_moderator'].includes(admin.role)) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <TopBar title="Activity" subtitle="App usage monitoring" />
+        <main className="flex-1 p-6">
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            Access restricted to Super Admin and Support Moderators.
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <TopBar title="Activity" subtitle="Immutable audit log of all admin actions" />
-      <main className="flex-1 p-6">
-        <div className="bg-white rounded-xl border border-gray-200">
-          {/* Header */}
-          <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-            <div>
-              <h2 className="text-sm font-semibold text-gray-900">Audit log</h2>
-              <p className="text-xs text-gray-400 mt-0.5">{total} total events</p>
-            </div>
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      <TopBar title="Activity" subtitle="App usage and engagement monitoring" />
+      <main className="flex-1 p-6 space-y-6">
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg">{error}</div>
+        )}
+
+        {/* Date range picker */}
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-gray-600">Time range:</span>
+          {RANGE_PRESETS.map((p) => (
             <button
-              onClick={() => load(0)}
-              className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-brand-teal transition-colors"
+              key={p.days}
+              onClick={() => loadMetrics(p.days)}
+              disabled={loading}
+              className={`text-sm px-4 py-2 rounded-lg border transition-colors ${
+                days === p.days
+                  ? 'bg-brand-teal text-white border-brand-teal'
+                  : 'border-gray-200 text-gray-600 hover:border-brand-teal/50'
+              } disabled:opacity-50`}
             >
-              <RefreshCw size={13} className={loading ? 'animate-spin' : ''} />
-              Refresh
+              {p.label}
             </button>
-          </div>
+          ))}
+          <button
+            onClick={() => loadMetrics(days)}
+            disabled={loading}
+            className="ml-auto flex items-center gap-1.5 text-xs text-gray-500 hover:text-brand-teal"
+          >
+            <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+            Refresh
+          </button>
+        </div>
 
-          {/* Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-100">
-                  {['When', 'Admin', 'Action', 'Resource', 'Details'].map((h) => (
-                    <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {loading ? (
-                  <tr>
-                    <td colSpan={5} className="px-4 py-10 text-center text-sm text-gray-400">
-                      Loading…
-                    </td>
-                  </tr>
-                ) : logs.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="px-4 py-12 text-center">
-                      <ActivityIcon size={24} className="text-gray-300 mx-auto mb-2" />
-                      <p className="text-sm text-gray-400">No audit events yet.</p>
-                      <p className="text-xs text-gray-300 mt-1">Admin actions will appear here automatically.</p>
-                    </td>
-                  </tr>
-                ) : (
-                  logs.map((log) => (
-                    <tr key={log.id} className="hover:bg-gray-50/50">
-                      <td className="px-4 py-3 text-xs text-gray-500 whitespace-nowrap">
-                        {fmt(log.created_at)}
-                      </td>
-                      <td className="px-4 py-3 text-xs font-medium text-gray-700 max-w-[140px] truncate">
-                        {log.admin_email}
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">
-                          {log.action}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-xs text-gray-500">
-                        {log.resource_type ?? '—'}
-                        {log.resource_id && (
-                          <span className="ml-1 text-gray-300">#{log.resource_id.slice(0, 8)}</span>
-                        )}
-                      </td>
-                      <td className="px-4 py-3 text-xs text-gray-400 max-w-[200px] truncate">
-                        {log.details ? JSON.stringify(log.details) : '—'}
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+        {loading ? (
+          <div className="py-12 text-center text-gray-400">Loading analytics…</div>
+        ) : metrics ? (
+          <>
+            {/* Overview stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="bg-white rounded-lg border border-gray-200 p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-semibold text-gray-500 uppercase">Total Users</span>
+                  <Users size={16} className="text-brand-teal" />
+                </div>
+                <p className="text-2xl font-bold text-gray-900">{metrics.totalUsers}</p>
+              </div>
 
-          {/* Pagination */}
-          {total > PAGE && (
-            <div className="px-5 py-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-              <span>
-                {page * PAGE + 1}–{Math.min((page + 1) * PAGE, total)} of {total}
-              </span>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => load(page - 1)}
-                  disabled={page === 0}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  Previous
-                </button>
-                <button
-                  onClick={() => load(page + 1)}
-                  disabled={(page + 1) * PAGE >= total}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  Next
-                </button>
+              <div className="bg-white rounded-lg border border-gray-200 p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-semibold text-gray-500 uppercase">Avg DAU</span>
+                  <TrendingUp size={16} className="text-green-500" />
+                </div>
+                <p className="text-2xl font-bold text-gray-900">
+                  {metrics.dau.length ? Math.round(metrics.dau.reduce((s, d) => s + d.count, 0) / metrics.dau.length) : 0}
+                </p>
+              </div>
+
+              <div className="bg-white rounded-lg border border-gray-200 p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-semibold text-gray-500 uppercase">New Sign-ups</span>
+                  <UserPlus size={16} className="text-brand-violet" />
+                </div>
+                <p className="text-2xl font-bold text-gray-900">{metrics.newUsers}</p>
+              </div>
+
+              <div className="bg-white rounded-lg border border-gray-200 p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-semibold text-gray-500 uppercase">Check-ins</span>
+                  <Calendar size={16} className="text-brand-pink" />
+                </div>
+                <p className="text-2xl font-bold text-gray-900">
+                  {metrics.checkins.reduce((s, c) => s + c.count, 0)}
+                </p>
               </div>
             </div>
-          )}
-        </div>
+
+            {/* DAU chart */}
+            {metrics.dau.length > 0 && (
+              <div className="bg-white rounded-lg border border-gray-200 p-5">
+                <h3 className="font-semibold text-gray-900 mb-4 text-sm">Daily Active Users</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={metrics.dau}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 12 }} />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="count" stroke="#14b8a6" strokeWidth={2} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+
+            {/* Check-ins chart */}
+            {metrics.checkins.length > 0 && (
+              <div className="bg-white rounded-lg border border-gray-200 p-5">
+                <h3 className="font-semibold text-gray-900 mb-4 text-sm">Daily Check-ins</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={metrics.checkins}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 12 }} />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="count" stroke="#f59e0b" strokeWidth={2} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+
+            {/* Top content */}
+            {metrics.topContent.length > 0 && (
+              <div className="bg-white rounded-lg border border-gray-200 p-5">
+                <h3 className="font-semibold text-gray-900 mb-4 text-sm">Most Completed Content</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={metrics.topContent}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis dataKey="label" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 12 }} />
+                    <Tooltip />
+                    <Bar dataKey="count" fill="#3b82f6" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+
+            {/* Mood & themes row */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {/* Mood distribution */}
+              {metrics.moodDistribution.length > 0 && (
+                <div className="bg-white rounded-lg border border-gray-200 p-5">
+                  <h3 className="font-semibold text-gray-900 mb-4 text-sm">Mood Distribution</h3>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie dataKey="count" data={metrics.moodDistribution} cx="50%" cy="50%" outerRadius={100} label>
+                        {metrics.moodDistribution.map((m, i) => (
+                          <Cell key={i} fill={MOOD_COLORS[m.mood_key || 'neutral'] || '#9ca3af'} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              )}
+
+              {/* Theme frequency */}
+              {metrics.themeFrequency.length > 0 && (
+                <div className="bg-white rounded-lg border border-gray-200 p-5">
+                  <h3 className="font-semibold text-gray-900 mb-4 text-sm">Top Themes Selected</h3>
+                  <div className="space-y-2">
+                    {metrics.themeFrequency.map((t, i) => (
+                      <div key={t.theme} className="flex items-center gap-3">
+                        <div
+                          className="w-3 h-3 rounded-full flex-shrink-0"
+                          style={{ backgroundColor: THEME_COLORS[i % THEME_COLORS.length] }}
+                        />
+                        <span className="text-sm text-gray-700 flex-1 capitalize">{t.theme}</span>
+                        <span className="text-sm font-medium text-gray-900">{t.count}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
+        ) : null}
       </main>
     </div>
   );
