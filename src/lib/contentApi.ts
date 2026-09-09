@@ -396,3 +396,48 @@ export async function deleteUserAndData(userId: string, adminId: string, adminEm
     details: { reason: 'POPIA erasure right - user deletion' },
   });
 }
+
+// ── Overview Stats ───────────────────────────────────────────────────────────
+
+export async function getAdminCount(): Promise<number> {
+  const { data, error } = await supabase
+    .from('admin_users')
+    .select('id', { count: 'exact', head: true });
+
+  if (error) {
+    console.error('Failed to get admin count:', error);
+    return 0;
+  }
+
+  return data?.length ?? 0;
+}
+
+export async function getTotalUsers(): Promise<number> {
+  const { data, error } = await supabase
+    .from('auth.users')
+    .select('id', { count: 'exact', head: true });
+
+  if (error) {
+    console.error('Failed to get total users:', error);
+    return 0;
+  }
+
+  return data?.length ?? 0;
+}
+
+export async function getDailyActiveUsers(days: number = 7): Promise<number> {
+  const daysAgo = new Date();
+  daysAgo.setDate(daysAgo.getDate() - days);
+
+  const { data, error } = await supabase
+    .from('user_sessions')
+    .select('user_id', { count: 'exact', head: true })
+    .gte('created_at', daysAgo.toISOString());
+
+  if (error) {
+    console.error('Failed to get daily active users:', error);
+    return 0;
+  }
+
+  return data?.length ?? 0;
+}

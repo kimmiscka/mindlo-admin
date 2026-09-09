@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import { supabase } from '../lib/supabase';
+import { getAdminCount, getTotalUsers, getDailyActiveUsers } from '../lib/contentApi';
 import { useAuth } from '../hooks/useAuth';
 
 interface StatTile {
@@ -28,8 +29,12 @@ export default function Overview() {
   const { admin } = useAuth();
   const [recentLogs, setRecentLogs] = useState<AuditRow[]>([]);
   const [logsLoading, setLogsLoading] = useState(true);
+  const [adminCount, setAdminCount] = useState<number | null>(null);
+  const [totalUsers, setTotalUsers] = useState<number | null>(null);
+  const [activeUsers, setActiveUsers] = useState<number | null>(null);
 
   useEffect(() => {
+    // Fetch audit logs
     supabase
       .from('audit_logs')
       .select('id, admin_email, action, resource_type, created_at')
@@ -39,6 +44,19 @@ export default function Overview() {
         setRecentLogs((data as AuditRow[]) ?? []);
         setLogsLoading(false);
       });
+
+    // Fetch overview stats
+    Promise.all([
+      getAdminCount(),
+      getTotalUsers(),
+      getDailyActiveUsers(),
+    ]).then(([admins, users, active]) => {
+      setAdminCount(admins);
+      setTotalUsers(users);
+      setActiveUsers(active);
+    }).catch((err) => {
+      console.error('Failed to fetch stats:', err);
+    });
   }, []);
 
   const tiles: StatTile[] = [
@@ -59,7 +77,7 @@ export default function Overview() {
     },
     {
       label: 'Admin users',
-      value: '—',
+      value: adminCount ?? '—',
       icon: Users,
       color: 'text-violet-600',
       bg: 'bg-violet-50',
