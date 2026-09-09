@@ -6,7 +6,6 @@ import { useAuth } from '../hooks/useAuth';
 import { listArticles, upsertArticle, deleteArticle, seedArticles } from '../lib/contentApi';
 import type { CmsArticle } from '../types';
 import { CATEGORY_LABELS } from '../types';
-import articlesRaw from '../data/articles.json';
 import quizzesRaw from '../data/quizzes.json';
 
 type Tab = 'articles' | 'quizzes' | 'exercises';
