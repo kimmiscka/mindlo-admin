@@ -402,8 +402,18 @@ export async function deleteUserAndData(userId: string, adminId: string, adminEm
   });
 
   if (!deleteResponse.ok) {
-    const errorData = await deleteResponse.json();
-    throw new Error(errorData.error || 'Failed to delete user');
+    let errorData;
+    try {
+      errorData = await deleteResponse.json();
+    } catch {
+      errorData = { error: await deleteResponse.text() };
+    }
+    console.error('Delete function response:', {
+      status: deleteResponse.status,
+      statusText: deleteResponse.statusText,
+      error: errorData,
+    });
+    throw new Error(errorData.error || `Delete failed: ${deleteResponse.statusText}`);
   }
 
   // Log the deletion
