@@ -8,6 +8,7 @@ import Login    from './pages/Login';
 import Overview from './pages/Overview';
 import Content  from './pages/Content';
 import Users    from './pages/Users';
+import Feedback from './pages/Feedback';
 import Activity from './pages/Activity';
 import Directory from './pages/Directory';
 import Quotes   from './pages/Quotes';
@@ -52,6 +53,7 @@ export default function App() {
                     <Route path="/overview"  element={<RoleGate section="overview"  fallback={<NotAllowed />}><Overview /></RoleGate>} />
                     <Route path="/content"   element={<RoleGate section="content"   fallback={<NotAllowed />}><Content /></RoleGate>} />
                     <Route path="/users"     element={<RoleGate section="users"     fallback={<NotAllowed />}><Users /></RoleGate>} />
+                    <Route path="/feedback"  element={<RoleGate section="feedback"  fallback={<NotAllowed />}><Feedback /></RoleGate>} />
                     <Route path="/activity"  element={<RoleGate section="activity"  fallback={<NotAllowed />}><Activity /></RoleGate>} />
                     <Route path="/directory" element={<RoleGate section="directory" fallback={<NotAllowed />}><Directory /></RoleGate>} />
                     <Route path="/quotes"    element={<RoleGate section="quotes"    fallback={<NotAllowed />}><Quotes /></RoleGate>} />

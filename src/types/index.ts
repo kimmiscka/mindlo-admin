@@ -26,7 +26,7 @@ export const ROLE_LABELS: Record<AdminRole, string> = {
 
 // Which sidebar sections each role can access.
 export const ROLE_SECTIONS: Record<AdminRole, string[]> = {
-  super_admin:       ['overview', 'content', 'users', 'activity', 'directory', 'quotes', 'settings'],
+  super_admin:       ['overview', 'content', 'users', 'feedback', 'activity', 'directory', 'quotes', 'settings'],
   content_manager:   ['overview', 'content', 'directory', 'quotes'],
   support_moderator: ['overview', 'users', 'activity'],
 };

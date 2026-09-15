@@ -384,9 +384,27 @@ export async function markFlagAddressed(
 }
 
 export async function deleteUserAndData(userId: string, adminId: string, adminEmail: string): Promise<void> {
-  // Delete user via Supabase auth
-  const { error } = await supabase.auth.admin.deleteUser(userId);
-  if (error) throw new Error(error.message);
+  // Get the current session for auth token
+  const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError || !session?.access_token) {
+    throw new Error('Not authenticated');
+  }
+
+  // Call the delete-user Edge Function
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+  const deleteResponse = await fetch(`${supabaseUrl}/functions/v1/delete-user`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${session.access_token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId }),
+  });
+
+  if (!deleteResponse.ok) {
+    const errorData = await deleteResponse.json();
+    throw new Error(errorData.error || 'Failed to delete user');
+  }
 
   // Log the deletion
   await logAudit(adminId, adminEmail, {
