@@ -50,7 +50,7 @@ export default function Users() {
   const handleUserSelect = async (user: AppUser) => {
     if (!admin) return;
     try {
-      const detail = await getUserDetail(user.id);
+      const detail = await getUserDetail(user.id).catch(() => ({ id: user.id, username: user.username, email: user.email } as any));
       setSelectedUser(detail);
       logUserAccess(admin.id, admin.email, user.id, 'view_user_detail').catch(() => {});
     } catch (e: unknown) {
